@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     public BoxCollider2D TapCollider;
 
     private bool _isGameEnded = false;
+    private SceneMag SceneControl;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,8 @@ public class GameController : MonoBehaviour
         TapCollider.enabled = false;
         SlingShooter.InitiateBird(Birds[0]);
         _shotBird = Birds[0];
+
+        SceneControl = GameObject.Find("Canvas").GetComponent<SceneMag>();
     }
 
     public void ChangeBird()
@@ -67,6 +71,13 @@ public class GameController : MonoBehaviour
         if(Enemies.Count == 0)
         {
             _isGameEnded = true;
+            SceneControl.levelClear();
+        }
+
+        else if(Birds.Count == 0 && Enemies.Count != 0)
+        {
+           
+            SceneControl.levelFail();
         }
     }
 
